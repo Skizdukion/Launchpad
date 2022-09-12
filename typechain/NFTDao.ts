@@ -716,22 +716,12 @@ export interface NFTDao extends BaseContract {
       _tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [
-        BigNumber,
-        string,
-        BigNumber,
-        BigNumber,
-        boolean,
-        BigNumber,
-        BigNumber,
-        string
-      ] & {
+      [BigNumber, string, BigNumber, BigNumber, boolean, BigNumber, string] & {
         tokenId: BigNumber;
         tokenOwner: string;
         level: BigNumber;
         rb: BigNumber;
         stakeFreeze: boolean;
-        createTimestamp: BigNumber;
         remainToNextLevel: BigNumber;
         uri: string;
       }
@@ -1025,22 +1015,12 @@ export interface NFTDao extends BaseContract {
     _tokenId: BigNumberish,
     overrides?: CallOverrides
   ): Promise<
-    [
-      BigNumber,
-      string,
-      BigNumber,
-      BigNumber,
-      boolean,
-      BigNumber,
-      BigNumber,
-      string
-    ] & {
+    [BigNumber, string, BigNumber, BigNumber, boolean, BigNumber, string] & {
       tokenId: BigNumber;
       tokenOwner: string;
       level: BigNumber;
       rb: BigNumber;
       stakeFreeze: boolean;
-      createTimestamp: BigNumber;
       remainToNextLevel: BigNumber;
       uri: string;
     }
@@ -1328,22 +1308,12 @@ export interface NFTDao extends BaseContract {
       _tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [
-        BigNumber,
-        string,
-        BigNumber,
-        BigNumber,
-        boolean,
-        BigNumber,
-        BigNumber,
-        string
-      ] & {
+      [BigNumber, string, BigNumber, BigNumber, boolean, BigNumber, string] & {
         tokenId: BigNumber;
         tokenOwner: string;
         level: BigNumber;
         rb: BigNumber;
         stakeFreeze: boolean;
-        createTimestamp: BigNumber;
         remainToNextLevel: BigNumber;
         uri: string;
       }

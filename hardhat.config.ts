@@ -43,7 +43,7 @@ const config: HardhatUserConfig = {
         enabled: true,
         blockNumber: 21141713,
       },
-      loggingEnabled: true,
+      // loggingEnabled: true,
       chainId: 31337,
       // accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : undefined,
       allowUnlimitedContractSize: true,
@@ -123,8 +123,8 @@ const config: HardhatUserConfig = {
     // coinmarketcap: process.env.COINMARKETCAP_API_KEY,
   },
   contractSizer: {
-    runOnCompile: false,
-    only: ["APIConsumer", "KeepersCounter", "PriceConsumerV3", "RandomNumberConsumer"],
+    runOnCompile: true,
+    // only: ["APIConsumer", "KeepersCounter", "PriceConsumerV3", "RandomNumberConsumer"],
   },
   namedAccounts: {
     deployer: {
@@ -141,6 +141,12 @@ const config: HardhatUserConfig = {
         version: "0.8.4",
       },
     ],
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
   },
   mocha: {
     timeout: 200000, // 200 seconds max for running tests

@@ -1,73 +1,28 @@
 import { DeployFunction } from "hardhat-deploy/types"
 import { getNamedAccounts, deployments, network, ethers } from "hardhat"
+import { BigNumber } from "ethers"
+import { MockERC20 } from "../typechain"
+import { developmentChains } from "../helper-hardhat-config"
+import { verify } from "../helper-functions"
 
 const deployFunction: DeployFunction = async () => {
   const { deploy, log } = deployments
   const { deployer } = await getNamedAccounts()
   const chainId: number | undefined = network.config.chainId
-
-  // If we are on a local development network, we need to deploy mocks!
-  // if (chainId === 31337) {
-  //   log(`Local network detected! Deploying mocks...`)
-
-  await deploy("WETH", {
-    contract: "WETH9",
-    from: deployer,
-    log: true,
-  })
-
-  await deploy("MockERC20V1", {
+  const accounts = await ethers.getSigners()
+  // const value = Math.floor(ethers.constants.MaxUint256 / bigint(10))
+  await deploy("USDTMOCK", {
     contract: "MockERC20",
     from: deployer,
     log: true,
-    args: ["Mock1ERC20", "M1", ethers.constants.MaxUint256],
+    args: ["MockUSDT", "USDT", ethers.constants.MaxUint256],
   })
-
-  await deploy("MockERC20V2", {
-    contract: "MockERC20",
-    from: deployer,
-    log: true,
-    args: ["Mock2ERC20", "M2", ethers.constants.MaxUint256],
-  })
-
-  await deploy("MockERC20V3", {
-    contract: "MockERC20",
-    from: deployer,
-    log: true,
-    args: ["Mock3ERC20", "M3", ethers.constants.MaxUint256],
-  })
-
-  await deploy("MockERC20V4", {
-    contract: "MockERC20",
-    from: deployer,
-    log: true,
-    args: ["Mock3ERC20", "M4", ethers.constants.MaxUint256],
-  })
-
-  await deploy("MockERC20V5", {
-    contract: "MockERC20",
-    from: deployer,
-    log: true,
-    args: ["Mock3ERC20", "M5", ethers.constants.MaxUint256],
-  })
-
-  await deploy("MockERC20V6", {
-    contract: "MockERC20",
-    from: deployer,
-    log: true,
-    args: ["Mock3ERC20", "M6", ethers.constants.MaxUint256],
-  })
-
-  await deploy("MockERC20V7", {
-    contract: "MockERC20",
-    from: deployer,
-    log: true,
-    args: ["Mock3ERC20", "M7", ethers.constants.MaxUint256],
-  })
-
-  log(`Mocks Deployed!`)
-  // }
+  const erc20: MockERC20 = await ethers.getContract("USDTMOCK")
+  const value = BigInt(1000000 * 10 ** 30) / BigInt(accounts.length)
+  for (let index = 0; index < accounts.length; index++) {
+    await erc20.transfer(accounts[index].address, BigNumber.from(value.toString()))
+  }
 }
 
 export default deployFunction
-deployFunction.tags = [`all`, `mocks`, `main`, `testnet`]
+deployFunction.tags = [`all`, `mocks`]
